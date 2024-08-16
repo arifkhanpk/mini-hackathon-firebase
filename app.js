@@ -1,29 +1,31 @@
 // Import Firebase modules
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.8.0/firebase-auth.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.8.0/firebase-auth.js";
+  
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBmVjp2mFrF1YZFNQOmbWmcN1ypVYAaO-0",
+  authDomain: "mini-hackathon-firebase.firebaseapp.com",
+  projectId: "mini-hackathon-firebase",
+  storageBucket: "mini-hackathon-firebase.appspot.com",
+  messagingSenderId: "595272317057",
+  appId: "1:595272317057:web:3328a1cdc996a508b8f580"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Sign-In
-document.getElementById('signInForm')?.addEventListener('submit', async (e) => {
+document.getElementById('signInForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = 'dashboard.html';
+    window.location.href = 'signin.html';
   } catch (error) {
     console.error('Error signing in:', error.message);
   }
@@ -37,27 +39,12 @@ document.getElementById('signUpForm')?.addEventListener('submit', async (e) => {
 
   try {
     await createUserWithEmailAndPassword(auth, email, password);
-    window.location.href = 'dashboard.html';
+    window.location.href = 'signup.html';
   } catch (error) {
     console.error('Error signing up:', error.message);
   }
 });
 
-// Sign-Out
-document.getElementById('signOutBtn')?.addEventListener('click', async () => {
-  try {
-    await signOut(auth);
-    window.location.href = 'signin.html';
-  } catch (error) {
-    console.error('Error signing out:', error.message);
-  }
-});
 
-// Redirect to dashboard if user is already signed in
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    if (window.location.pathname === '/signin.html') {
-      window.location.href = 'dashboard.html';
-    }
-  }
-});
+
+
